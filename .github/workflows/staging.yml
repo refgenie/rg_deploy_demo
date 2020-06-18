@@ -48,20 +48,22 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
 
-    - name: Push to DockerHub
-      uses: docker/build-push-action@v1
-      with:
-        username: ${{ secrets.DOCKER_USERNAME }}
-        password: ${{ secrets.DOCKER_PASSWORD }}
-        repository: databio/refgenieserver
-        tags: demo
+    # - name: Push to DockerHub
+    #   uses: docker/build-push-action@v1
+    #   with:
+    #     username: ${{ secrets.DOCKER_USERNAME }}
+    #     password: ${{ secrets.DOCKER_PASSWORD }}
+    #     repository: databio/refgenieserver
+    #     tags: demo
 
 
     - name: Checkout demo repo
       uses: actions/checkout@v2   
       with:
-        name: databio/dbg
+        name: refgenie/server_deploy_demo
         refs: refs/heads/master
+      run: cd server_deploy_demo
+
 
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v1
