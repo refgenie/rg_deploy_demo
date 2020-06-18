@@ -94,7 +94,7 @@ jobs:
       id: task-def
       uses: aws-actions/amazon-ecs-render-task-definition@v1
       with:
-        task-definition: server_deploy_demo/task_defs/${{ env.server }}.json
+        task-definition: task_defs/${{ env.server }}.json
         container-name: rgs-container
         image: ${{ steps.build-image.outputs.image }}
 
