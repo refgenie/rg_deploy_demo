@@ -62,6 +62,7 @@ jobs:
       with:
         name: refgenie/server_deploy_demo
         refs: refs/heads/master
+        path: server_deploy_demo
 
     - name: Change to demo repo folder
       run: cd server_deploy_demo
