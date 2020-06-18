@@ -93,15 +93,13 @@ jobs:
     - name: Fill in the new image ID in the Amazon ECS task definition
       id: task-def
       uses: aws-actions/amazon-ecs-render-task-definition@v1
-      working-directory: server_deploy_demo
       with:
-        task-definition: task_defs/${{ env.server }}.json
+        task-definition: server_deploy_demo/task_defs/${{ env.server }}.json
         container-name: rgs-container
         image: ${{ steps.build-image.outputs.image }}
 
     - name: Deploy Amazon ECS task definition
       uses: aws-actions/amazon-ecs-deploy-task-definition@v1
-      working-directory: server_deploy_demo
       with:
         task-definition: ${{ steps.task-def.outputs.task-definition }}
         service: rgs-service-${{ env.server }}
