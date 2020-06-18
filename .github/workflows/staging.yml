@@ -60,7 +60,7 @@ jobs:
     - name: Checkout demo repo
       uses: actions/checkout@v2   
       with:
-        name: refgenie/server_deploy_demo
+        repository: refgenie/server_deploy_demo
         refs: refs/heads/master
         path: server_deploy_demo
 
