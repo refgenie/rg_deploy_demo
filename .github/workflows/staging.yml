@@ -62,7 +62,6 @@ jobs:
       with:
         name: databio/dbg
         refs: refs/heads/master
-        path: demo
 
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v1
