@@ -33,6 +33,8 @@ on:
   push:
     branches:
       - dev
+      - master
+      - staging
 
 name: Deploy to Amazon ECS - master
 
