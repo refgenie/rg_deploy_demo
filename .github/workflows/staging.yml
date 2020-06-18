@@ -54,7 +54,7 @@ jobs:
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
         repository: databio/refgenieserver
-        tags: latest
+        tags: demo
 
 
     - name: Checkout demo repo
