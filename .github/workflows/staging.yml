@@ -81,11 +81,11 @@ jobs:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         ECR_REPOSITORY: my-ecr-repo
         IMAGE_TAG: ${{ github.sha }}
+        working-directory: server_deploy_demo
       run: |
         # Build a docker container and
         # push it to ECR so that it can
         # be deployed to ECS.
-        cd server_deploy_demo
         docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -f Dockerfiles/${{ env.server }}.Dockerfile .
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
         echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
@@ -97,6 +97,7 @@ jobs:
         task-definition: task_defs/${{ env.server }}.json
         container-name: rgs-container
         image: ${{ steps.build-image.outputs.image }}
+        working-directory: server_deploy_demo
 
     - name: Deploy Amazon ECS task definition
       uses: aws-actions/amazon-ecs-deploy-task-definition@v1
@@ -105,3 +106,4 @@ jobs:
         service: rgs-service-${{ env.server }}
         cluster: hydra
         wait-for-service-stability: true
+        working-directory: server_deploy_demo
