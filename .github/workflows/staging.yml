@@ -77,11 +77,11 @@ jobs:
 
     - name: Build, tag, and push image to Amazon ECR
       id: build-image
+      working-directory: server_deploy_demo
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         ECR_REPOSITORY: my-ecr-repo
         IMAGE_TAG: ${{ github.sha }}
-        working-directory: server_deploy_demo
       run: |
         # Build a docker container and
         # push it to ECR so that it can
@@ -93,17 +93,17 @@ jobs:
     - name: Fill in the new image ID in the Amazon ECS task definition
       id: task-def
       uses: aws-actions/amazon-ecs-render-task-definition@v1
+      working-directory: server_deploy_demo
       with:
         task-definition: task_defs/${{ env.server }}.json
         container-name: rgs-container
         image: ${{ steps.build-image.outputs.image }}
-        working-directory: server_deploy_demo
 
     - name: Deploy Amazon ECS task definition
       uses: aws-actions/amazon-ecs-deploy-task-definition@v1
+      working-directory: server_deploy_demo
       with:
         task-definition: ${{ steps.task-def.outputs.task-definition }}
         service: rgs-service-${{ env.server }}
         cluster: hydra
         wait-for-service-stability: true
-        working-directory: server_deploy_demo
